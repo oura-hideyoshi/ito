@@ -31,6 +31,7 @@ public class TsubuyakiController {
         List<Tsubuyaki> list = ts.getAllTsubuyaki(); // 全つぶやきを取得
         model.addAttribute("tsubuyakiList", list); // モデル属性にリストをセット
         model.addAttribute("tsubuyakiForm", new TsubuyakiForm()); // 空フォームをセット
+        model.addAttribute("searchForm", new SearchForm());
         return "tsubuyaki_list"; // リスト画面を返す
     }
 
@@ -46,5 +47,14 @@ public class TsubuyakiController {
         // サービスに投稿処理を依頼
         ts.postTsubuyaki(t);
         return "redirect:/read"; // メイン画面に転送
+    }
+
+    // つぶやきを検索
+    @GetMapping("/search")
+    String searchTsubuyaki(@ModelAttribute("searchForm") SearchForm form, Model model){
+        List<Tsubuyaki> list = ts.search(form.getComment()); // 全つぶやきを取得
+        model.addAttribute("tsubuyakiList", list); // モデル属性にリストをセット
+        model.addAttribute("number", list.size());
+        return "search";
     }
 }

@@ -34,4 +34,23 @@ public class TsubuyakiService {
         found.forEach(list::add);
         return list;
     }
+
+    // キーワードを含むつぶやきを検索
+    public List<Tsubuyaki> search(String comment){
+
+        Iterable<Tsubuyaki> found = new ArrayList<Tsubuyaki>();
+
+        //すべてブランクだった場合は全件検索する
+        if ("".equals(comment)){
+            found = repo.findAll();
+        }
+        else {
+            //上記以外の場合、BookDataDaoImplのメソッドを呼び出す
+            found = repo.findByCommentContaining(comment);
+        }
+
+        ArrayList<Tsubuyaki> list = new ArrayList<>();
+        found.forEach(list::add);
+        return list;
+    }
  }

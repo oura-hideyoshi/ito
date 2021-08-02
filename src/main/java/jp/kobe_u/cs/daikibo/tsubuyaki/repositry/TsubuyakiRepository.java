@@ -1,5 +1,6 @@
 package jp.kobe_u.cs.daikibo.tsubuyaki.repositry;
 
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,7 +10,7 @@ import jp.kobe_u.cs.daikibo.tsubuyaki.entity.Tsubuyaki;
 
   
 public interface TsubuyakiRepository extends CrudRepository<Tsubuyaki, Long>{
-    
+    Iterable<Tsubuyaki> findByCommentContaining(String comment);
   
 
 }
